@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Eco-Conscious Movement | Leading the Charge for a Healthier Planet</title>
   <meta name="description" content="Advocating sustainable climate action, plastic pollution control, environmental justice, and proper waste management in Nigeria."/>
 
@@ -12,30 +12,72 @@
   <style>
     body { font-family: 'Inter', sans-serif; }
     .hero-bg { background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center; }
+
+    /* Hero entrance animation */
+    .fade-up { transform: translateY(8px); opacity: 0; transition: transform 450ms cubic-bezier(.2,.8,.2,1), opacity 450ms; }
+    .fade-up.visible { transform: none; opacity: 1; }
   </style>
+
+  <!-- Performance & Font preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Favicon & theme -->
+  <link rel="icon" href="./images/favicon.svg" />
+  <link rel="apple-touch-icon" href="./images/apple-touch-icon.svg" />
+  <meta name="theme-color" content="#065f46" />
+  <link rel="canonical" href="/" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="The Eco-Conscious Movement" />
+  <meta property="og:description" content="Advocating sustainable climate action and environmental justice in Nigeria." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="/" />
+  <meta property="og:image" content="./images/social-share.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Eco-Conscious Movement" />
+  <meta name="twitter:description" content="Advocating sustainable climate action and environmental justice in Nigeria." />
+  <meta name="twitter:image" content="./images/social-share.svg" />
+
+  <!-- Structured data (Organization) -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Organization","name":"Eco-Conscious Movement","url":"/","logo":"./images/logo4.jpg","sameAs":["https://facebook.com/","https://twitter.com/"],"contactPoint":{"@type":"ContactPoint","email":"ecocoonsciousmovement@gmail.com","contactType":"customer service"}}
+  </script>
 </head>
 <body class="bg-gray-50 text-gray-800">
+  <a href="#main" class="sr-only focus:not-sr-only p-2 bg-white text-green-700">Skip to content</a>
 
   <!-- Header / Navigation -->
-  <header class="bg-green-800 text-white">
+  <header class="bg-green-800/95 text-white sticky top-0 z-40 backdrop-blur-sm transition-shadow" role="banner">
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
       <a href="#home" class="flex items-center space-x-4">
         <img src="./images/logo4.jpg" alt="Eco-Conscious Movement logo" class="h-12 w-auto" />
         <span class="text-2xl font-bold">The Eco-Conscious Movement</span>
       </a>
-      <nav class="space-x-8 hidden md:block">
+      <nav class="space-x-8 hidden md:block" aria-label="Primary navigation">
         <a href="#home" class="hover:underline">Home</a>
         <a href="#founder" class="hover:underline">Founder</a>
         <a href="#themes" class="hover:underline">Thematic Areas</a>
-        <a href="#contact" class="hover:underline">Get Involved</a>
-        <a href="#projects" class="hover:underline">Projects</a>
+        <a href="projects.html" class="hover:underline">Projects</a>
       </nav>
-      <button class="md:hidden">☰</button>
+      <button id="nav-toggle" class="md:hidden p-2 rounded hover:bg-green-700/30" aria-controls="mobile-menu" aria-expanded="false" aria-label="Toggle menu">☰</button>
+    </div>
+
+    <!-- Mobile menu: appears on small screens when toggled -->
+    <div id="mobile-menu" class="md:hidden hidden bg-white text-gray-800 border-t">
+      <div class="px-6 py-4 space-y-2">
+        <a href="#home" class="block px-3 py-2 rounded hover:bg-gray-100">Home</a>
+        <a href="#founder" class="block px-3 py-2 rounded hover:bg-gray-100">Founder</a>
+        <a href="#themes" class="block px-3 py-2 rounded hover:bg-gray-100">Thematic Areas</a>
+        <a href="projects.html" class="block px-3 py-2 rounded hover:bg-gray-100">Projects</a>
+      </div>
     </div>
   </header>
+  <main id="main">
 
   <!-- Hero Section -->
-  <section id="home" class="hero-bg text-white py-32">
+  <section id="home" class="hero-bg text-white py-20 md:py-32 min-h-[60vh] md:min-h-screen flex items-center">
     <div class="container mx-auto px-6 text-center">
       <h1 class="text-4xl md:text-5xl font-bold mb-6">Leading the Charge for a Healthier Planet</h1>
       <p class="text-xl md:text-2xl mb-10 max-w-4xl mx-auto">
@@ -52,7 +94,6 @@
   <section class="py-20 bg-white">
     <div class="container mx-auto px-6 max-w-5xl text-center">
       <h2 class="text-3xl md:text-4xl font-bold text-green-800 mb-8">Welcome to the Eco-Conscious Movement!</h2>
-        <img src=""
       <p class="text-lg leading-relaxed text-gray-700">
         We’re a passionate team dedicated to creating a sustainable future by advocating for <strong>sustainable climate change adaptation & mitigation, plastic pollution control, environmental justice, proper waste management,</strong> and innovative solutions like the <strong>circular economy and waste valorization</strong>.<br><br>
         Through public education and data-driven initiatives, we tackle terrestrial and aquatic pollution challenges head-on. Our work is rooted in scientific research and public education, with the goal of inspiring meaningful change at both individual and community levels.<br><br>
@@ -89,16 +130,16 @@
     </div>
   </section>
 
-  <!--teams and volunteers-->
-    <section id="team" class="py-20 bg-gray-100">
-        <div class="container mx-auto px-6 max-w-5xl">
-        <h2 class="text-3xl md:text-4xl font-bold text-center text-green-800 mb-12">Our Team & Volunteers</h2>
-        <div class="grid md:grid-cols-3 gap-12 items-center">
-            <figure class="mx-auto text-center font-bold">
-            <img src="./images/teampicture.jpg" alt="Team Member 1" class="rounded-lg shadow-xl mx-auto h-[300px] w-[250px]"/>
-            </figure>
-        </div>
-        </div>
+  <!-- Teams & Volunteers -->
+  <section id="team" class="py-12 bg-white">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-center text-green-800 mb-8">Our Team & Volunteers</h2>
+      <div class="grid md:grid-cols-3 gap-8 items-center">
+        <img src="./images/teampicture.jpg" alt="Eco-Conscious Movement team" class="rounded-lg shadow-xl mx-auto w-full"/>
+      </div>
+    </div>
+  </section>
+  
 
 
   <!-- Thematic Areas -->
@@ -122,9 +163,11 @@
       <!-- Raising Environmental Stewards -->
       <div class="bg-green-50 rounded-2xl p-10 mb-20">
         <h3 class="text-2xl font-bold text-green-800 mb-6 text-center">Raising a Generation of Environmental Stewards</h3>
-        <img src="./images/raising-generation.jpg">
+        <img src="./images/raising-generation.jpg" alt="Raising a generation of environmental stewards" class="h-[450px] w-full mb-6"/>
         <p class="text-lg text-center max-w-4xl mx-auto">
-          With over 60% of Nigeria’s population under 25, our youth are the greatest asset to champion a greener future. Raising environmental stewards is not just timely — <strong>it’s essential for national development</strong>.
+            Nigeria stands at a critical point in its environmental journey. From plastic pollution choking our waterways to desertification moving rapidly across the north, flooding sweeping through coastal cities, and waste mismanagement affecting public health—our nation faces urgent ecological challenges.<br><br>
+            Yet in the midst of these challenges lies Nigeria’s greatest asset: its youth. With over 60% of the population under age 25, Nigeria has the human potential to champion a greener, cleaner, and more sustainable future.<br><br>
+            Eco-conscious Movement believe raising a generation of environmental stewards in Nigeria is not just timely—it's essential for national development.
         </p>
       </div>
 
@@ -137,27 +180,25 @@
             Plastic pollution is one of Nigeria’s most urgent environmental problems. From Lagos to Kano, Port Harcourt to Onitsha, and even remote villages, plastic waste has become an everyday sight — clogging drainage channels, littering markets, polluting rivers, and harming both human health and ecosystems.<br><br>
             Nigeria generates an estimated 2.5 million tonnes of plastic waste annually, and a large portion ends up in our oceans, canals, roadsides, and dumpsites. The River Niger,  the largest river in Nigeria empty 35196 tons of plastic waste into the Gulf of Guinea making it one of the 10 most plastic polluting rivers in the world. <br><br>
             The consequences are severe, but the solutions are within reach if everyone plays their part. We need a  complex system transformation on;<br><br>
-            <option class="list">
-                <p>
-                    Over dependency on sachet water and single-use plastics.
-                </p>
-                <p> 
-                    Poor waste disposal and management.
-                </p>
-                <p>
-                    Enforcement of environmental sanitation laws.
-                </p>
-            </option>
           </p>
+          <ul class="list-disc list-inside mt-4 text-lg">
+            <li>Improved waste management infrastructure</li>
+            <li>Stronger regulations on plastic production and use</li>
+            <li>Public education campaigns to change consumer behavior</li>
+            <li>Community clean-up initiatives</li>
+            <li>Promotion of alternatives to single-use plastics</li>
+            </ul>
         </div>
       </div>
 
       <!-- Environmental Injustice -->
-      <div class="bg-red-50 rounded-2xl p-10 mb-20 xt-center">
+      <div class="bg-red-50 rounded-2xl p-10 mb-20 text-center">
         <h3 class="text-2xl font-bold text-red-800 mb-6">Environmental Injustice</h3>
+        <img src="./images/Environmental-Injustice.jpg" class="h-[450px] w-full mb-6"/>
         <p class="text-lg max-w-4xl mx-auto">
-          From oil spills in the Niger Delta to toxic dumps near poor communities — those who contribute the least to pollution often suffer the most.<br><br>
-          <strong>We are here listening for the deaf, speaking for the dumb, and fighting for the weak.</strong>
+         Environmental injustice remains one of the most pressing but least discussed challenges affecting millions of Nigerians today. From oil spills in the Niger Delta to toxic dumps near poor communities, from mismanaged waste sites in urban slums to unequal access to clean water in rural towns—environmental harm in Nigeria does not affect everyone equally. Those who contribute the least to pollution often suffer the most from its consequences.<br><br>
+         Environmental injustice has become one of the most critical but least addressed issues in Nigeria’s development story. It refers to the unequal distribution of environmental benefits and burdens, where certain communities—often poor, rural, or marginalized groups—bear the greatest risks from pollution, resource exploitation, and environmental degradation. <br><br>
+         In Nigeria, this inequality is shaped by a mixture of weak environmental governance, poverty, uneven development, corruption, and industrial activities that prioritize profit over people. The Eco-Conscious Movement is here listening for the deaf, speaking for the dumb, and fighting for the weak.
         </p>
       </div>
 
@@ -180,18 +221,7 @@
     </div>
   </section>
 
-    <!-- projects -->
-     <section id="projects" class="py-20 bg-white"> 
-      <div class="container mx-auto px-20">
-        <h2 class="text-3xl md:text -4xl font-bold text-center text-green-800 mb-16">Projects</h2>
-        <img src="" alt="Plastic pollution in Nigeria" class="rounded-lg shadow-lg mb-10 w-[300px] h-[350px]"/>
-        <p class="text-lg mb-10">
-         
-        <img src="./images/school.jpg" alt="school sensitisation programs" class="rounded-lg shadow-lg mb-10"/>
-        <p class="text-lg">
-        </p>
-        </div>
-     </section>
+    
 
   <!-- Call to Action / Get Involved -->
   <section id="contact" class="py-20 bg-green-700 text-white text-center">
@@ -200,20 +230,80 @@
       <p class="text-xl mb-10 max-w-3xl mx-auto">
         Whether you want to volunteer, partner with us, or support our campaigns — your action matters.
       </p>
-      <a href="ecocoonsciousmovement@gmail.com" class="bg-white text-green-700 hover:bg-gray-100 px-10 py-5 rounded-lg text-lg font-bold transition inline-block">
+      <a href="mailto:ecocoonsciousmovement@gmail.com" class="bg-white text-green-700 hover:bg-gray-100 px-10 py-5 rounded-lg text-lg font-bold transition inline-block">
         Get Involved Today
       </a>
     </div>
   </section>
-
+  </main>
   <!-- Footer -->
   <footer class="bg-gray-900 text-white py-12">
-    <div class="container mx-auto px-6 text-center">
-      <p class="text-2xl font-bold mb-4">Eco-Conscious Movement</p>
-      <p class="mb-6">Protecting Nigeria’s Environment │ Inspiring Sustainable Action │ Building a Sustainable Future</p>
-      <p>© 2025 Eco-Conscious Movement. All rights reserved.</p>
+    <div class="container mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <p class="text-2xl font-bold mb-2">Eco-Conscious Movement</p>
+          <p class="text-sm text-gray-300">Protecting Nigeria’s Environment │ Inspiring Sustainable Action</p>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-2">Contact</h4>
+          <p class="text-sm">Email: <a href="mailto:ecocoonsciousmovement@gmail.com" class="text-green-300">ecocoonsciousmovement@gmail.com</a></p>
+          <p class="text-sm mt-2">Location: Ilorin, Nigeria</p>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-2">Site</h4>
+          <ul class="text-sm space-y-1">
+            <li><a href="#home" class="text-gray-300 hover:text-white">Home</a></li>
+            <li><a href="#themes" class="text-gray-300 hover:text-white">Thematic Areas</a></li>
+            <li><a href="projects.html" class="text-gray-300 hover:text-white">Projects</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-8 text-center text-gray-400">
+        <small>© <span id="year">2025</span> Eco-Conscious Movement. All rights reserved.</small>
+      </div>
     </div>
   </footer>
 
+
+<script>
+  (function(){
+    const btn = document.getElementById('nav-toggle');
+    const menu = document.getElementById('mobile-menu');
+    const header = document.querySelector('header');
+    if (btn && menu) {
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
+        menu.classList.toggle('hidden');
+      });
+      // Close menu on Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') { menu.classList.add('hidden'); btn.setAttribute('aria-expanded', 'false'); }
+      });
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!menu.contains(e.target) && !btn.contains(e.target)) {
+          menu.classList.add('hidden'); btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    // Dynamic year in footer
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    // Header shadow on scroll
+    if (header) {
+      const onScroll = () => {
+        if (window.scrollY > 6) header.classList.add('shadow-lg'); else header.classList.remove('shadow-lg');
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+
+  })();
+</script>
 </body>
 </html>

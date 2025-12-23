@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+<meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Eco-Conscious Movement | Leading the Charge for a Healthier Planet</title>
+  <meta name="description" content="Advocating sustainable climate action, plastic pollution control, environmental justice, and proper waste management in Nigeria."/>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script> 
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .hero-bg { background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center; }
+
+    /* Project gallery base: single-line & horizontally scrollable on small screens */
+    .project-gallery { display: flex; gap: 1rem; overflow-x: auto; padding-top: 0.5rem; padding-bottom: 0.5rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scroll-behavior: smooth; }
+    .project-gallery:focus { outline: 3px solid rgba(16,185,129,0.25); outline-offset: 3px; }
+    .project-gallery figure { flex: 0 0 auto; width: 16rem; scroll-snap-align: start; }
+    .project-gallery img { width: 100%; height: auto; display: block; border-radius: 0.5rem; object-fit: cover; aspect-ratio: 16 / 10; }
+
+    /* Make galleries wrap into a responsive grid on medium and larger screens */
+    @media (min-width: 768px) {
+      .project-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; overflow: visible; scroll-snap-type: none; }
+      .project-gallery figure { width: auto; }
+      .project-gallery img { aspect-ratio: 16 / 10; height: auto; }
+    }
+
+    /* Slightly larger images on larger breakpoints */
+    @media (min-width: 1024px) {
+      .project-gallery img { aspect-ratio: 16 / 9; }
+    }
+    @media (min-width: 1280px) {
+      .project-gallery img { aspect-ratio: 4 / 3; }
+    }
+
+    /* Accessibility and small visual helpers */
+    .project-gallery .placeholder { background: #edf2f7; color: #6b7280; display: flex; align-items: center; justify-content: center; height: 9rem; border-radius: 0.5rem; }
+  </style>
+    </head>
+
+    <body class="bg-gray-100 text-gray-800">
+<!-- projects -->
+     <section id="projects" class="py-20 bg-white"> 
+      <div class="container mx-auto px-10">
+        <h2 class="text-3xl md:text-4xl font-bold text-center text-green-800 mb-16">Projects</h2>
+
+        <!-- Projects: each project has a heading (h3), short description, and a horizontal single-line gallery -->
+
+        <!-- Project 1 -->
+        <div class="mb-10">
+          <h3 class="text-2xl font-semibold text-green-700 mb-2">Sustainability sensitisation for farmers using Asa Dam, Ilorin</h3>
+          <p class="text-gray-700 mb-4">Promotes responsible water use and sustainable farming practices, ensuring the long-term health of Asa Dam and local food security.</p>
+
+          <div class="project-gallery" role="region" aria-label="Sustainability sensitisation gallery" tabindex="0">
+            <figure>
+              <img src="./images/farmland2.jpg" alt="Asa Dam farmer training" class="shadow-lg" />
+              <figcaption class="mt-2 text-sm text-gray-600">Educating the farmers on sustainable practices</figcaption>
+            </figure>
+            <figure class="flex-shrink-0 w-64 snap-start">
+              <img src="./images/FARMLAND.jpg" alt="Farm demonstration" class="rounded-lg shadow-lg w-full h-40 object-cover" />
+              <figcaption class="mt-2 text-sm text-gray-600">Demonstrating sustainable farming practices</figcaption>
+            </figure>
+            <figure class="flex-shrink-0 w-64 snap-start">
+              <img src="./images/farmland4.jpg" alt="Irrigation practice" class="rounded-lg shadow-lg w-full h-40 object-cover" />
+              <figcaption class="mt-2 text-sm text-gray-600">Irrigation best-practices</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="mb-10">
+          <h3 class="text-2xl font-semibold text-green-700 mb-2">Street Clean-up Exercise </h3>
+          <p class="text-gray-700 mb-4">| Immediately improves local sanitation and aesthetics, reduces litter that can block drainage, and encourages community ownership of public spaces.
+          </p>
+
+          <div class="project-gallery" role="region" aria-label="Community clean-up gallery" tabindex="0">
+            <figure>
+              <img src="./images/streetcleanup34.jpg" alt="Community clean-up" class="shadow-lg" />
+              <figcaption class="mt-2 text-sm text-gray-600">Volunteers collecting waste</figcaption>
+            </figure>
+            <figure class="flex-shrink-0 w-64 snap-start">
+              <img src="./images/streetcleanup.jpg" alt="Awareness session" class="rounded-lg shadow-lg w-full h-40 object-cover" />
+              <figcaption class="mt-2 text-sm text-gray-600">Public awareness session</figcaption>
+            </figure>
+            <figure class="flex-shrink-0 w-64 snap-start">
+              <img src="./images/streetcleanup3.jpg" alt="Waste sorting" class="rounded-lg shadow-lg w-full h-40 object-cover" />
+              <figcaption class="mt-2 text-sm text-gray-600">Waste sorting demonstration</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="mb-10">
+          <h3 class="text-2xl font-semibold text-green-700 mb-2">Awareness Outreach for High School Students  </h3>
+          <p class="text-gray-700 mb-4"> Fosters the next generation of eco-conscious leaders by educating young adults on climate change, resource management, and active community participation. </p>
+
+          <div class="project-gallery" role="region" aria-label="Water testing gallery" tabindex="0">
+            <figure>
+              <img src="./images/school.jpg" alt="Water testing kit" class="shadow-lg" />
+              <figcaption class="mt-2 text-sm text-gray-600">Awareness outreach</figcaption>
+            </figure>
+            <figure class="flex-shrink-0 w-64 snap-start">
+              <img src="./images/schoolproject1.jpg" alt="Field sampling" class="rounded-lg shadow-lg w-full h-40 object-cover" />
+              <figcaption class="mt-2 text-sm text-gray-600">plant preservation training.</figcaption>
+            </figure>
+            <figure class="flex-shrink-0 w-64 snap-start">
+              <img src="./images/schoolpics.jpg" alt="Results discussion" class="rounded-lg shadow-lg w-full h-40 object-cover" />
+              <figcaption class="mt-2 text-sm text-gray-600">Teaching the Students how a standard comunity should look like.</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="mb-10">
+          <h3 class="text-2xl font-semibold text-green-700 mb-2">River Clean-up Exercise </h3>
+          <p class="text-gray-700 mb-4">Protects aquatic ecosystems and biodiversity, prevents plastic pollution from flowing downstream, and enhances the overall health of the watershed. </p>
+
+          <div class="project-gallery" role="region" aria-label="School sensitisation gallery" tabindex="0">
+            <figure>
+              <img src="./images/lakesidecleanup.jpg" alt="School session" class="shadow-lg" />
+              <figcaption class="mt-2 text-sm text-gray-600">River clean-up session</figcaption>
+            </figure>
+            <figure class="flex-shrink-0 w-64 snap-start">
+              <img src="./images/lake1.jpg" alt="Interactive activity" class="rounded-lg shadow-lg w-full h-40 object-cover" />
+              <figcaption class="mt-2 text-sm text-gray-600">Taking out the plastics.</figcaption>
+            </figure>
+            <figure class="flex-shrink-0 w-64 snap-start">
+              <img src="./images/lakeside.jpg" alt="Student engagement" class="rounded-lg shadow-lg w-full h-40 object-cover" />
+              <figcaption class="mt-2 text-sm text-gray-600">Community participation</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <!-- Project 5 -->
+        <div class="mb-10">
+          <h3 class="text-2xl font-semibold text-green-700 mb-2">Open Market Campaign </h3>
+          <p class="text-gray-700 mb-4">Engages the public directly on reducing plastic waste, promoting reusable alternatives, and encouraging local businesses to adopt greener packaging.</p>
+
+          <div class="project-gallery" role="region" aria-label="Circular economy gallery" tabindex="0">
+            <figure>
+              <img src="./images/marketoutreach.jpg" alt="Recycling pilot" class="shadow-lg" />
+              <figcaption class="mt-2 text-sm text-gray-600">Creating awareness </figcaption>
+            </figure>
+            <figure class="flex-shrink-0 w-64 snap-start">
+              <img src="g.jpg" alt="Processing" class="rounded-lg shadow-lg w-full h-40 object-cover" />
+              <figcaption class="mt-2 text-sm text-gray-600">Processing steps</figcaption>
+            </figure>
+            <figure class="flex-shrink-0 w-64 snap-start">
+              <img src="./images/waste3.jpg" alt="Product showcase" class="rounded-lg shadow-lg w-full h-40 object-cover" />
+              <figcaption class="mt-2 text-sm text-gray-600">Final product showcase</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <!-- Project 6 -->
+        <div class="mb-10">
+          <h3 class="text-2xl font-semibold text-green-700 mb-2">Policy advocacy & stakeholder engagement</h3>
+          <p class="text-gray-700 mb-4">Work with local authorities and partners to influence waste management and environmental policies.</p>
+
+          <div class="project-gallery" role="region" aria-label="Policy advocacy gallery" tabindex="0">
+            <figure>
+              <img src="./images/policy1.jpg" alt="Stakeholder meeting" class="shadow-lg" />
+              <figcaption class="mt-2 text-sm text-gray-600">Stakeholder engagement</figcaption>
+            </figure>
+            <figure class="flex-shrink-0 w-64 snap-start">
+              <img src="./images/policy2.jpg" alt="Workshop" class="rounded-lg shadow-lg w-full h-40 object-cover" />
+              <figcaption class="mt-2 text-sm text-gray-600">Policy workshop</figcaption>
+            </figure>
+            <figure class="flex-shrink-0 w-64 snap-start">
+              <img src="./images/policy3.jpg" alt="Consultation" class="rounded-lg shadow-lg w-full h-40 object-cover" />
+              <figcaption class="mt-2 text-sm text-gray-600">Consultation outcomes</figcaption>
+            </figure>
+          </div>
+        </div>
+
+          <p class="text-sm text-gray-500 mt-3">Tip: Each project's gallery remains single-line; replace file names in ./images/ with real photos for each project.</p>
+
+        </div>
+     </section>
+   </body>
+</html>
