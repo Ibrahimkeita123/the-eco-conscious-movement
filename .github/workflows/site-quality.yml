@@ -1,0 +1,50 @@
+name: Site Quality
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install global tools
+        run: |
+          npm install -g http-server pa11y html-validator-cli lighthouse
+
+      - name: Start static server
+        run: |
+          npx http-server -p 8080 &
+          # wait for server
+          for i in {1..10}; do curl -sSf http://localhost:8080 && break || sleep 1; done
+
+      - name: Validate HTML
+        run: |
+          npx html-validator http://localhost:8080 --verbose
+
+      - name: Accessibility check (pa11y)
+        run: |
+          npx pa11y http://localhost:8080 || true
+
+      - name: Lighthouse (performance/accessibility/SEO)
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+        run: |
+          npx lighthouse http://localhost:8080 --output json --output-path=./lighthouse-report.json --chrome-flags="--no-sandbox" --quiet || true
+
+      - name: Upload reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-quality-reports
+          path: |
+            lighthouse-report.json
