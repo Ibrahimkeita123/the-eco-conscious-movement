@@ -43,12 +43,22 @@
     .project-gallery::-webkit-scrollbar-thumb { background: rgba(156,163,175,0.6); border-radius: 9999px; }
 
     /* Gallery chevrons (scroll affordance) */
-    .gallery-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.45); color: white; border: none; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; cursor: pointer; z-index: 10; }
+    .gallery-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.45); color: white; border: none; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; cursor: pointer; z-index: 10; opacity: 1; visibility: visible; transition: opacity .18s ease, visibility .18s ease; }
     .gallery-btn svg { width: 18px; height: 18px; }
     .gallery-btn.prev { left: 8px; }
     .gallery-btn.next { right: 8px; }
     .gallery-btn:disabled { opacity: 0.35; cursor: default; }
     .project-gallery { position: relative; }
+
+    /* On pointer/hover-capable devices, hide chevrons until hover/focus to reduce clutter */
+    @media (hover: hover) and (pointer: fine) {
+      .project-gallery .gallery-btn { opacity: 0; visibility: hidden; pointer-events: none; }
+      .project-gallery:hover .gallery-btn,
+      .project-gallery:focus-within .gallery-btn { opacity: 1; visibility: visible; pointer-events: auto; }
+    }
+
+    /* If a gallery doesn't scroll, hide chevrons entirely */
+    .project-gallery.no-scroll .gallery-btn { display: none !important; }
 
     /* Respect reduced motion preference */
     @media (prefers-reduced-motion: reduce) {
@@ -406,13 +416,24 @@
         const next = gallery.querySelector('.gallery-btn.next');
         const step = () => Math.max(200, Math.round(gallery.clientWidth * 0.8));
         const update = () => {
-          if (prev) prev.disabled = gallery.scrollLeft <= 0;
-          if (next) next.disabled = gallery.scrollLeft + gallery.clientWidth >= gallery.scrollWidth - 1;
+          const canScroll = gallery.scrollWidth > gallery.clientWidth + 1;
+          const atStart = gallery.scrollLeft <= 0;
+          const atEnd = gallery.scrollLeft + gallery.clientWidth >= gallery.scrollWidth - 1;
+          if (prev) { prev.disabled = !canScroll || atStart; prev.setAttribute('aria-hidden', String(!canScroll)); }
+          if (next) { next.disabled = !canScroll || atEnd; next.setAttribute('aria-hidden', String(!canScroll)); }
+          gallery.classList.toggle('no-scroll', !canScroll);
         };
         if (prev) prev.addEventListener('click', () => gallery.scrollBy({ left: -step(), behavior: 'smooth' }));
         if (next) next.addEventListener('click', () => gallery.scrollBy({ left: step(), behavior: 'smooth' }));
-        gallery.addEventListener('scroll', () => { window.requestAnimationFrame(update); }, { passive: true });
-        window.addEventListener('resize', update);
+        // update on scroll/resize and when content changes (images load)
+        const rafUpdate = () => window.requestAnimationFrame(update);
+        gallery.addEventListener('scroll', rafUpdate, { passive: true });
+        window.addEventListener('resize', rafUpdate);
+        // watch for content changes e.g., images loading or DOM changes
+        const observer = new MutationObserver(rafUpdate);
+        observer.observe(gallery, { childList: true, subtree: true });
+        // also update when images inside load (they may change scrollWidth)
+        gallery.querySelectorAll('img').forEach(img => img.addEventListener('load', rafUpdate));
         // initialize state
         update();
       });
