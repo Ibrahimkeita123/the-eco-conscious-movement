@@ -14,7 +14,7 @@
     .hero-bg { background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center; }
 
     /* Project gallery base: single-line & horizontally scrollable on small screens */
-    .project-gallery { display: flex; gap: 1rem; overflow-x: auto; padding-top: 0.5rem; padding-bottom: 0.5rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scroll-behavior: smooth; touch-action: pan-y; overscroll-behavior-x: contain; }
+    .project-gallery { display: flex; gap: 1rem; overflow-x: auto; padding-top: 0.5rem; padding-bottom: 0.5rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scroll-behavior: smooth; touch-action: pan-x; overscroll-behavior-x: contain; }
     .project-gallery:focus { outline: 3px solid rgba(16,185,129,0.25); outline-offset: 3px; }
     .project-gallery figure { flex: 0 0 auto; width: min(80vw, 16rem); scroll-snap-align: start; scroll-snap-stop: always; }
     .project-gallery img { width: 100%; height: auto; display: block; border-radius: 0.5rem; object-fit: cover; aspect-ratio: 16 / 10; }
@@ -41,6 +41,14 @@
     .project-gallery { scrollbar-width: thin; scrollbar-color: rgba(156,163,175,0.6) transparent; }
     .project-gallery::-webkit-scrollbar { height: 8px; }
     .project-gallery::-webkit-scrollbar-thumb { background: rgba(156,163,175,0.6); border-radius: 9999px; }
+
+    /* Gallery chevrons (scroll affordance) */
+    .gallery-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.45); color: white; border: none; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; cursor: pointer; z-index: 10; }
+    .gallery-btn svg { width: 18px; height: 18px; }
+    .gallery-btn.prev { left: 8px; }
+    .gallery-btn.next { right: 8px; }
+    .gallery-btn:disabled { opacity: 0.35; cursor: default; }
+    .project-gallery { position: relative; }
 
     /* Respect reduced motion preference */
     @media (prefers-reduced-motion: reduce) {
@@ -113,6 +121,8 @@
           <p class="text-gray-700 mb-4">Promotes responsible water use and sustainable farming practices, ensuring the long-term health of Asa Dam and local food security.</p>
 
           <div class="project-gallery" role="region" aria-label="Sustainability sensitisation gallery" tabindex="0" aria-describedby="gallery-instructions">
+            <button type="button" class="gallery-btn prev" aria-label="Scroll left"><span class="sr-only">Scroll left</span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12.293 16.293a1 1 0 010 1.414l-6-6a1 1 0 010-1.414l6-6a1 1 0 111.414 1.414L8.414 11l5.293 5.293a1 1 0 010 1.414z" clip-rule="evenodd"/></svg></button>
+            <button type="button" class="gallery-btn next" aria-label="Scroll right"><span class="sr-only">Scroll right</span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M7.707 3.707a1 1 0 010-1.414l6 6a1 1 0 010 1.414l-6 6A1 1 0 116.293 14.293L11.586 9 6.293 3.707a1 1 0 011.414-1.414z" clip-rule="evenodd"/></svg></button>
             <figure>
               <img src="./images/farmland2.jpg" alt="Asa Dam farmer training" class="shadow-lg" loading="lazy" decoding="async" />
               <figcaption class="mt-2 text-sm text-gray-600">Educating the farmers on sustainable practices</figcaption>
@@ -135,6 +145,8 @@
           </p>
 
           <div class="project-gallery" role="region" aria-label="Community clean-up gallery" tabindex="0" aria-describedby="gallery-instructions">
+            <button type="button" class="gallery-btn prev" aria-label="Scroll left"><span class="sr-only">Scroll left</span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12.293 16.293a1 1 0 010 1.414l-6-6a1 1 0 010-1.414l6-6a1 1 0 111.414 1.414L8.414 11l5.293 5.293a1 1 0 010 1.414z" clip-rule="evenodd"/></svg></button>
+            <button type="button" class="gallery-btn next" aria-label="Scroll right"><span class="sr-only">Scroll right</span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M7.707 3.707a1 1 0 010-1.414l6 6a1 1 0 010 1.414l-6 6A1 1 0 116.293 14.293L11.586 9 6.293 3.707a1 1 0 011.414-1.414z" clip-rule="evenodd"/></svg></button>
             <figure>
               <img src="./images/newstreetcleanup.jpeg" alt="Community clean-up" class="shadow-lg" loading="lazy" decoding="async" />
               <figcaption class="mt-2 text-sm text-gray-600">Volunteers collecting waste</figcaption>
@@ -156,6 +168,8 @@
           <p class="text-gray-700 mb-4"> Fosters the next generation of eco-conscious leaders by educating young adults on climate change, resource management, and active community participation. </p>
 
           <div class="project-gallery" role="region" aria-label="Water testing gallery" tabindex="0" aria-describedby="gallery-instructions">
+            <button type="button" class="gallery-btn prev" aria-label="Scroll left"><span class="sr-only">Scroll left</span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12.293 16.293a1 1 0 010 1.414l-6-6a1 1 0 010-1.414l6-6a1 1 0 111.414 1.414L8.414 11l5.293 5.293a1 1 0 010 1.414z" clip-rule="evenodd"/></svg></button>
+            <button type="button" class="gallery-btn next" aria-label="Scroll right"><span class="sr-only">Scroll right</span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M7.707 3.707a1 1 0 010-1.414l6 6a1 1 0 010 1.414l-6 6A1 1 0 116.293 14.293L11.586 9 6.293 3.707a1 1 0 011.414-1.414z" clip-rule="evenodd"/></svg></button>
             <figure>
               <img src="./images/school.jpg" alt="Water testing kit" class="shadow-lg" loading="lazy" decoding="async" />
               <figcaption class="mt-2 text-sm text-gray-600">Awareness outreach</figcaption>
@@ -177,6 +191,8 @@
           <p class="text-gray-700 mb-4">Protects aquatic ecosystems and biodiversity, prevents plastic pollution from flowing downstream, and enhances the overall health of the watershed. </p>
 
           <div class="project-gallery" role="region" aria-label="School sensitisation gallery" tabindex="0" aria-describedby="gallery-instructions">
+            <button type="button" class="gallery-btn prev" aria-label="Scroll left"><span class="sr-only">Scroll left</span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12.293 16.293a1 1 0 010 1.414l-6-6a1 1 0 010-1.414l6-6a1 1 0 111.414 1.414L8.414 11l5.293 5.293a1 1 0 010 1.414z" clip-rule="evenodd"/></svg></button>
+            <button type="button" class="gallery-btn next" aria-label="Scroll right"><span class="sr-only">Scroll right</span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M7.707 3.707a1 1 0 010-1.414l6 6a1 1 0 010 1.414l-6 6A1 1 0 116.293 14.293L11.586 9 6.293 3.707a1 1 0 011.414-1.414z" clip-rule="evenodd"/></svg></button>
             <figure>
               <img src="./images/lakesidecleanup.jpg" alt="School session" class="shadow-lg" loading="lazy" decoding="async" />
               <figcaption class="mt-2 text-sm text-gray-600">River clean-up session</figcaption>
@@ -198,6 +214,8 @@
           <p class="text-gray-700 mb-4">Engages the public directly on reducing plastic waste, promoting reusable alternatives, and encouraging local businesses to adopt greener packaging.</p>
 
           <div class="project-gallery" role="region" aria-label="Circular economy gallery" tabindex="0" aria-describedby="gallery-instructions">
+            <button type="button" class="gallery-btn prev" aria-label="Scroll left"><span class="sr-only">Scroll left</span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12.293 16.293a1 1 0 010 1.414l-6-6a1 1 0 010-1.414l6-6a1 1 0 111.414 1.414L8.414 11l5.293 5.293a1 1 0 010 1.414z" clip-rule="evenodd"/></svg></button>
+            <button type="button" class="gallery-btn next" aria-label="Scroll right"><span class="sr-only">Scroll right</span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M7.707 3.707a1 1 0 010-1.414l6 6a1 1 0 010 1.414l-6 6A1 1 0 116.293 14.293L11.586 9 6.293 3.707a1 1 0 011.414-1.414z" clip-rule="evenodd"/></svg></button>
             <figure>
               <img src="./images/new market 34.jpeg" alt="Recycling pilot" class="shadow-lg" loading="lazy" decoding="async" />
               <figcaption class="mt-2 text-sm text-gray-600">Group photo with the market Women </figcaption>
@@ -219,6 +237,8 @@
           <p class="text-gray-700 mb-4">Raises awareness of the circular economy by demonstrating the value of waste, encouraging better sorting, and supporting local recycling jobs.</p>
 
           <div class="project-gallery" role="region" aria-label="Policy advocacy gallery" tabindex="0" aria-describedby="gallery-instructions">
+            <button type="button" class="gallery-btn prev" aria-label="Scroll left"><span class="sr-only">Scroll left</span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12.293 16.293a1 1 0 010 1.414l-6-6a1 1 0 010-1.414l6-6a1 1 0 111.414 1.414L8.414 11l5.293 5.293a1 1 0 010 1.414z" clip-rule="evenodd"/></svg></button>
+            <button type="button" class="gallery-btn next" aria-label="Scroll right"><span class="sr-only">Scroll right</span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M7.707 3.707a1 1 0 010-1.414l6 6a1 1 0 010 1.414l-6 6A1 1 0 116.293 14.293L11.586 9 6.293 3.707a1 1 0 011.414-1.414z" clip-rule="evenodd"/></svg></button>
             <figure>
               <img src="./images/plastic recovery site.jpeg" alt="Stakeholder meeting" class="shadow-lg" loading="lazy" decoding="async" />
               <figcaption class="mt-2 text-sm text-gray-600">Stakeholder engagement</figcaption>
@@ -238,6 +258,8 @@
           <p class="text-gray-700 mb-4"> Combats climate change through carbon sequestration (tree planting), enhances local green spaces, and supports environmental education in schools with necessary resources.|</p>
 
           <div class="project-gallery" role="region" aria-label="Policy advocacy gallery" tabindex="0" aria-describedby="gallery-instructions">
+            <button type="button" class="gallery-btn prev" aria-label="Scroll left"><span class="sr-only">Scroll left</span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12.293 16.293a1 1 0 010 1.414l-6-6a1 1 0 010-1.414l6-6a1 1 0 111.414 1.414L8.414 11l5.293 5.293a1 1 0 010 1.414z" clip-rule="evenodd"/></svg></button>
+            <button type="button" class="gallery-btn next" aria-label="Scroll right"><span class="sr-only">Scroll right</span><svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M7.707 3.707a1 1 0 010-1.414l6 6a1 1 0 010 1.414l-6 6A1 1 0 116.293 14.293L11.586 9 6.293 3.707a1 1 0 011.414-1.414z" clip-rule="evenodd"/></svg></button>
             <figure>
               <img src="./images/new tree donation.jpeg" alt="Stakeholder meeting" class="shadow-lg" loading="lazy" decoding="async" />
               <figcaption class="mt-2 text-sm text-gray-600">Stakeholder engagement</figcaption>
@@ -374,6 +396,25 @@
           else if (e.key === 'Home') { e.preventDefault(); gallery.scrollTo({ left: 0, behavior: 'smooth' }); }
           else if (e.key === 'End') { e.preventDefault(); gallery.scrollTo({ left: gallery.scrollWidth, behavior: 'smooth' }); }
         });
+      });
+    })();
+
+    // Gallery button handlers: wire prev/next buttons and keep them disabled at edges
+    (function galleryButtonHandlers(){
+      document.querySelectorAll('.project-gallery').forEach(gallery => {
+        const prev = gallery.querySelector('.gallery-btn.prev');
+        const next = gallery.querySelector('.gallery-btn.next');
+        const step = () => Math.max(200, Math.round(gallery.clientWidth * 0.8));
+        const update = () => {
+          if (prev) prev.disabled = gallery.scrollLeft <= 0;
+          if (next) next.disabled = gallery.scrollLeft + gallery.clientWidth >= gallery.scrollWidth - 1;
+        };
+        if (prev) prev.addEventListener('click', () => gallery.scrollBy({ left: -step(), behavior: 'smooth' }));
+        if (next) next.addEventListener('click', () => gallery.scrollBy({ left: step(), behavior: 'smooth' }));
+        gallery.addEventListener('scroll', () => { window.requestAnimationFrame(update); }, { passive: true });
+        window.addEventListener('resize', update);
+        // initialize state
+        update();
       });
     })();
 
