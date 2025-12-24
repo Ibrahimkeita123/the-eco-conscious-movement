@@ -14,9 +14,9 @@
     .hero-bg { background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center; }
 
     /* Project gallery base: single-line & horizontally scrollable on small screens */
-    .project-gallery { display: flex; gap: 1rem; overflow-x: auto; padding-top: 0.5rem; padding-bottom: 0.5rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scroll-behavior: smooth; }
+    .project-gallery { display: flex; gap: 1rem; overflow-x: auto; padding-top: 0.5rem; padding-bottom: 0.5rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scroll-behavior: smooth; touch-action: pan-y; overscroll-behavior-x: contain; }
     .project-gallery:focus { outline: 3px solid rgba(16,185,129,0.25); outline-offset: 3px; }
-    .project-gallery figure { flex: 0 0 auto; width: 16rem; scroll-snap-align: start; }
+    .project-gallery figure { flex: 0 0 auto; width: min(80vw, 16rem); scroll-snap-align: start; scroll-snap-stop: always; }
     .project-gallery img { width: 100%; height: auto; display: block; border-radius: 0.5rem; object-fit: cover; aspect-ratio: 16 / 10; }
 
     /* Make galleries wrap into a responsive grid on medium and larger screens */
@@ -36,14 +36,74 @@
 
     /* Accessibility and small visual helpers */
     .project-gallery .placeholder { background: #edf2f7; color: #6b7280; display: flex; align-items: center; justify-content: center; height: 9rem; border-radius: 0.5rem; }
+
+    /* Thinner, themed gallery scrollbar */
+    .project-gallery { scrollbar-width: thin; scrollbar-color: rgba(156,163,175,0.6) transparent; }
+    .project-gallery::-webkit-scrollbar { height: 8px; }
+    .project-gallery::-webkit-scrollbar-thumb { background: rgba(156,163,175,0.6); border-radius: 9999px; }
+
+    /* Respect reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      .project-gallery, .project-gallery * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+    }
+
+    /* When jumping to anchors, make sure content isn't hidden by the sticky header */
+    #home, #founder, #themes, #contact, #projects { scroll-margin-top: 84px; }
+
+    /* Fluid typography helpers */
+    .fluid-h1 { font-size: clamp(1.75rem, 2.5vw + 1rem, 3.75rem); }
+    .fluid-h2 { font-size: clamp(1.25rem, 1.6vw + 0.8rem, 2.25rem); }
+    .fluid-h3 { font-size: clamp(1.05rem, 1.2vw + 0.6rem, 1.5rem); }
+
+    /* Focus outlines for keyboard users */
+    :where(a, button, [role="button"]) :focus-visible { outline: none; }
+    a:focus-visible, button:focus-visible, [role="button"]:focus-visible { outline: 3px solid rgba(16,185,129,0.35); outline-offset: 3px; border-radius: 4px; }
+
+    /* Prevent overflow and improve small-screen layout */
+    html, body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    * { box-sizing: border-box; }
+    .container { padding-left: 1rem; padding-right: 1rem; max-width: 1200px; margin-left: auto; margin-right: auto; }
+    @media(min-width:768px){ .container { padding-left: 1.5rem; padding-right: 1.5rem; } }
+    .project-gallery, .project-gallery * { min-width: 0; }
+    .project-gallery img { min-width: 0; max-width: 100%; }
+    .footer-stack-sm { display: block; text-align: center; }
+    @media(min-width: 768px){ .footer-stack-sm { display: unset; text-align: left; } }
   </style>
     </head>
 
-    <body class="bg-gray-100 text-gray-800">
+    <body class="bg-gray-100 text-gray-800 overflow-x-hidden">
+  <a href="#main" class="sr-only focus:not-sr-only p-2 bg-white text-green-700">Skip to content</a>
+
+  <!-- Header / Navigation -->
+  <header class="bg-green-800/95 text-white sticky top-0 z-40 backdrop-blur-sm transition-shadow" role="banner">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="flex items-center space-x-4">
+        <img src="./images/logo4.jpg" alt="Eco-Conscious Movement logo" class="h-12 w-auto" />
+        <span class="text-2xl font-bold">The Eco-Conscious Movement</span>
+      </a>
+      <nav class="space-x-8 hidden md:block" aria-label="Primary navigation">
+        <a href="index.html" class="hover:underline py-2 px-2 inline-block">Home</a>
+        
+      </nav>
+      <button id="nav-toggle" class="md:hidden p-3 rounded hover:bg-green-700/30" aria-controls="mobile-menu" aria-expanded="false" aria-haspopup="true" aria-label="Toggle menu">☰</button>
+    </div>
+
+    <!-- Mobile menu: appears on small screens when toggled -->
+    <div id="mobile-menu" role="menu" class="md:hidden hidden bg-white text-gray-800 border-t">
+      <div class="px-6 py-4 space-y-2">
+        <a role="menuitem" href="index.html" class="block px-4 py-3 rounded hover:bg-gray-100">Home</a>
+        <a role="menuitem" href="#founder" class="block px-4 py-3 rounded hover:bg-gray-100">Founder</a>
+        <a role="menuitem" href="#themes" class="block px-4 py-3 rounded hover:bg-gray-100">Thematic Areas</a>
+        <a role="menuitem" href="projects.html" class="block px-4 py-3 rounded hover:bg-gray-100">Projects</a>
+      </div>
+    </div>
+  </header>
+  <main id="main">
 <!-- projects -->
      <section id="projects" class="py-20 bg-white"> 
-      <div class="container mx-auto px-10">
-        <h2 class="text-3xl md:text-4xl font-bold text-center text-green-800 mb-16">Projects</h2>
+      <div class="container mx-auto px-6">
+        <h2 class="fluid-h2 text-3xl md:text-4xl font-bold text-center text-green-800 mb-16">Projects</h2>
+        <p id="gallery-instructions" class="sr-only">Project galleries are horizontally scrollable. When focused, use left and right arrow keys to navigate the gallery.</p>
 
         <!-- Projects: each project has a heading (h3), short description, and a horizontal single-line gallery -->
 
@@ -52,17 +112,17 @@
           <h3 class="text-2xl font-semibold text-green-700 mb-2">Sustainability sensitisation for farmers using Asa Dam, Ilorin</h3>
           <p class="text-gray-700 mb-4">Promotes responsible water use and sustainable farming practices, ensuring the long-term health of Asa Dam and local food security.</p>
 
-          <div class="project-gallery" role="region" aria-label="Sustainability sensitisation gallery" tabindex="0">
+          <div class="project-gallery" role="region" aria-label="Sustainability sensitisation gallery" tabindex="0" aria-describedby="gallery-instructions">
             <figure>
-              <img src="./images/farmland2.jpg" alt="Asa Dam farmer training" class="shadow-lg" />
+              <img src="./images/farmland2.jpg" alt="Asa Dam farmer training" class="shadow-lg" loading="lazy" decoding="async" />
               <figcaption class="mt-2 text-sm text-gray-600">Educating the farmers on sustainable practices</figcaption>
             </figure>
-            <figure class="flex-shrink-0 w-64 snap-start">
-              <img src="./images/FARMLAND.jpg" alt="Farm demonstration" class="rounded-lg shadow-lg w-full h-40 object-cover" />
+            <figure class="flex-shrink-0 snap-start">
+              <img src="./images/FARMLAND.jpg" alt="Farm demonstration" class="rounded-lg shadow-lg w-full object-cover" style="aspect-ratio:16/9;" loading="lazy" decoding="async" />
               <figcaption class="mt-2 text-sm text-gray-600">Demonstrating sustainable farming practices</figcaption>
             </figure>
-            <figure class="flex-shrink-0 w-64 snap-start">
-              <img src="./images/farmland4.jpg" alt="Irrigation practice" class="rounded-lg shadow-lg w-full h-40 object-cover" />
+            <figure class="flex-shrink-0 snap-start">
+              <img src="./images/new asa dam.jpeg" alt="Irrigation practice" class="rounded-lg shadow-lg w-full object-cover" style="aspect-ratio:16/9;" loading="lazy" decoding="async" />
               <figcaption class="mt-2 text-sm text-gray-600">Irrigation best-practices</figcaption>
             </figure>
           </div>
@@ -74,18 +134,18 @@
           <p class="text-gray-700 mb-4">| Immediately improves local sanitation and aesthetics, reduces litter that can block drainage, and encourages community ownership of public spaces.
           </p>
 
-          <div class="project-gallery" role="region" aria-label="Community clean-up gallery" tabindex="0">
+          <div class="project-gallery" role="region" aria-label="Community clean-up gallery" tabindex="0" aria-describedby="gallery-instructions">
             <figure>
-              <img src="./images/streetcleanup34.jpg" alt="Community clean-up" class="shadow-lg" />
+              <img src="./images/newstreetcleanup.jpeg" alt="Community clean-up" class="shadow-lg" loading="lazy" decoding="async" />
               <figcaption class="mt-2 text-sm text-gray-600">Volunteers collecting waste</figcaption>
             </figure>
-            <figure class="flex-shrink-0 w-64 snap-start">
-              <img src="./images/streetcleanup.jpg" alt="Awareness session" class="rounded-lg shadow-lg w-full h-40 object-cover" />
-              <figcaption class="mt-2 text-sm text-gray-600">Public awareness session</figcaption>
+            <figure class="flex-shrink-0 snap-start">
+              <img src="./images/streetcleanup34.jpg" alt="Awareness session" class="rounded-lg shadow-lg w-full object-cover" style="aspect-ratio:16/9;" loading="lazy" decoding="async" />
+              <figcaption class="mt-2 text-sm text-gray-600">collecting waste</figcaption>
             </figure>
-            <figure class="flex-shrink-0 w-64 snap-start">
-              <img src="./images/streetcleanup3.jpg" alt="Waste sorting" class="rounded-lg shadow-lg w-full h-40 object-cover" />
-              <figcaption class="mt-2 text-sm text-gray-600">Waste sorting demonstration</figcaption>
+            <figure class="flex-shrink-0 snap-start">
+              <img src="./images/waste disposal.jpg" alt="Waste sorting" class="rounded-lg shadow-lg w-full object-cover" style="aspect-ratio:16/9;" loading="lazy" decoding="async" />
+              <figcaption class="mt-2 text-sm text-gray-600">Disposing of the waste after cleanup</figcaption>
             </figure>
           </div>
         </div>
@@ -95,17 +155,17 @@
           <h3 class="text-2xl font-semibold text-green-700 mb-2">Awareness Outreach for High School Students  </h3>
           <p class="text-gray-700 mb-4"> Fosters the next generation of eco-conscious leaders by educating young adults on climate change, resource management, and active community participation. </p>
 
-          <div class="project-gallery" role="region" aria-label="Water testing gallery" tabindex="0">
+          <div class="project-gallery" role="region" aria-label="Water testing gallery" tabindex="0" aria-describedby="gallery-instructions">
             <figure>
-              <img src="./images/school.jpg" alt="Water testing kit" class="shadow-lg" />
+              <img src="./images/school.jpg" alt="Water testing kit" class="shadow-lg" loading="lazy" decoding="async" />
               <figcaption class="mt-2 text-sm text-gray-600">Awareness outreach</figcaption>
             </figure>
-            <figure class="flex-shrink-0 w-64 snap-start">
-              <img src="./images/schoolproject1.jpg" alt="Field sampling" class="rounded-lg shadow-lg w-full h-40 object-cover" />
-              <figcaption class="mt-2 text-sm text-gray-600">plant preservation training.</figcaption>
+            <figure class="flex-shrink-0 snap-start">
+              <img src="./images/school awareness.jpeg" alt="Field sampling" class="rounded-lg shadow-lg w-full object-cover" style="aspect-ratio:16/9;" loading="lazy" decoding="async" />
+              <figcaption class="mt-2 text-sm text-gray-600">After demonstrations.</figcaption>
             </figure>
-            <figure class="flex-shrink-0 w-64 snap-start">
-              <img src="./images/schoolpics.jpg" alt="Results discussion" class="rounded-lg shadow-lg w-full h-40 object-cover" />
+            <figure class="flex-shrink-0 snap-start">
+              <img src="./images/schoolpics.jpg" alt="Results discussion" class="rounded-lg shadow-lg w-full object-cover" style="aspect-ratio:16/9;" loading="lazy" decoding="async" />
               <figcaption class="mt-2 text-sm text-gray-600">Teaching the Students how a standard comunity should look like.</figcaption>
             </figure>
           </div>
@@ -116,17 +176,17 @@
           <h3 class="text-2xl font-semibold text-green-700 mb-2">River Clean-up Exercise </h3>
           <p class="text-gray-700 mb-4">Protects aquatic ecosystems and biodiversity, prevents plastic pollution from flowing downstream, and enhances the overall health of the watershed. </p>
 
-          <div class="project-gallery" role="region" aria-label="School sensitisation gallery" tabindex="0">
+          <div class="project-gallery" role="region" aria-label="School sensitisation gallery" tabindex="0" aria-describedby="gallery-instructions">
             <figure>
-              <img src="./images/lakesidecleanup.jpg" alt="School session" class="shadow-lg" />
+              <img src="./images/lakesidecleanup.jpg" alt="School session" class="shadow-lg" loading="lazy" decoding="async" />
               <figcaption class="mt-2 text-sm text-gray-600">River clean-up session</figcaption>
             </figure>
-            <figure class="flex-shrink-0 w-64 snap-start">
-              <img src="./images/lake1.jpg" alt="Interactive activity" class="rounded-lg shadow-lg w-full h-40 object-cover" />
+            <figure class="flex-shrink-0 snap-start">
+              <img src="./images/lake1.jpg" alt="Interactive activity" class="rounded-lg shadow-lg w-full object-cover" style="aspect-ratio:16/9;" loading="lazy" decoding="async" />
               <figcaption class="mt-2 text-sm text-gray-600">Taking out the plastics.</figcaption>
             </figure>
-            <figure class="flex-shrink-0 w-64 snap-start">
-              <img src="./images/lakeside.jpg" alt="Student engagement" class="rounded-lg shadow-lg w-full h-40 object-cover" />
+            <figure class="flex-shrink-0 snap-start">
+              <img src="./images/lakeside.jpg" alt="Student engagement" class="rounded-lg shadow-lg w-full object-cover" style="aspect-ratio:16/9;" loading="lazy" decoding="async" />
               <figcaption class="mt-2 text-sm text-gray-600">Community participation</figcaption>
             </figure>
           </div>
@@ -137,46 +197,187 @@
           <h3 class="text-2xl font-semibold text-green-700 mb-2">Open Market Campaign </h3>
           <p class="text-gray-700 mb-4">Engages the public directly on reducing plastic waste, promoting reusable alternatives, and encouraging local businesses to adopt greener packaging.</p>
 
-          <div class="project-gallery" role="region" aria-label="Circular economy gallery" tabindex="0">
+          <div class="project-gallery" role="region" aria-label="Circular economy gallery" tabindex="0" aria-describedby="gallery-instructions">
             <figure>
-              <img src="./images/marketoutreach.jpg" alt="Recycling pilot" class="shadow-lg" />
-              <figcaption class="mt-2 text-sm text-gray-600">Creating awareness </figcaption>
+              <img src="./images/new market 34.jpeg" alt="Recycling pilot" class="shadow-lg" loading="lazy" decoding="async" />
+              <figcaption class="mt-2 text-sm text-gray-600">Group photo with the market Women </figcaption>
             </figure>
-            <figure class="flex-shrink-0 w-64 snap-start">
-              <img src="g.jpg" alt="Processing" class="rounded-lg shadow-lg w-full h-40 object-cover" />
-              <figcaption class="mt-2 text-sm text-gray-600">Processing steps</figcaption>
+            <figure class="flex-shrink-0 snap-start">
+              <img src="./images/new market awareness.jpeg" alt="Processing" class="rounded-lg shadow-lg w-full object-cover" style="aspect-ratio:16/9;" loading="lazy" decoding="async" />
+              <figcaption class="mt-2 text-sm text-gray-600">Creating awareness</figcaption>
             </figure>
-            <figure class="flex-shrink-0 w-64 snap-start">
-              <img src="./images/waste3.jpg" alt="Product showcase" class="rounded-lg shadow-lg w-full h-40 object-cover" />
-              <figcaption class="mt-2 text-sm text-gray-600">Final product showcase</figcaption>
+            <figure class="flex-shrink-0 snap-start">
+              <img src="./images/marketoutreach.jpg" alt="Product showcase" class="rounded-lg shadow-lg w-full object-cover" style="aspect-ratio:16/9;" loading="lazy" decoding="async" />
+              <figcaption class="mt-2 text-sm text-gray-600">Market outreach</figcaption>
             </figure>
           </div>
         </div>
 
         <!-- Project 6 -->
         <div class="mb-10">
-          <h3 class="text-2xl font-semibold text-green-700 mb-2">Policy advocacy & stakeholder engagement</h3>
-          <p class="text-gray-700 mb-4">Work with local authorities and partners to influence waste management and environmental policies.</p>
+          <h3 class="text-2xl font-semibold text-green-700 mb-2">Visit to Plastic Recovery Centre </h3>
+          <p class="text-gray-700 mb-4">Raises awareness of the circular economy by demonstrating the value of waste, encouraging better sorting, and supporting local recycling jobs.</p>
 
-          <div class="project-gallery" role="region" aria-label="Policy advocacy gallery" tabindex="0">
+          <div class="project-gallery" role="region" aria-label="Policy advocacy gallery" tabindex="0" aria-describedby="gallery-instructions">
             <figure>
-              <img src="./images/policy1.jpg" alt="Stakeholder meeting" class="shadow-lg" />
+              <img src="./images/plastic recovery site.jpeg" alt="Stakeholder meeting" class="shadow-lg" loading="lazy" decoding="async" />
               <figcaption class="mt-2 text-sm text-gray-600">Stakeholder engagement</figcaption>
             </figure>
-            <figure class="flex-shrink-0 w-64 snap-start">
-              <img src="./images/policy2.jpg" alt="Workshop" class="rounded-lg shadow-lg w-full h-40 object-cover" />
+            <figure class="flex-shrink-0 snap-start">
+              <img src="./images/inspecting.jpg" alt="Workshop" class="rounded-lg shadow-lg w-full object-cover" style="aspect-ratio:16/9;" loading="lazy" decoding="async" />
               <figcaption class="mt-2 text-sm text-gray-600">Policy workshop</figcaption>
             </figure>
-            <figure class="flex-shrink-0 w-64 snap-start">
-              <img src="./images/policy3.jpg" alt="Consultation" class="rounded-lg shadow-lg w-full h-40 object-cover" />
-              <figcaption class="mt-2 text-sm text-gray-600">Consultation outcomes</figcaption>
-            </figure>
+           
           </div>
         </div>
 
-          <p class="text-sm text-gray-500 mt-3">Tip: Each project's gallery remains single-line; replace file names in ./images/ with real photos for each project.</p>
+
+        <!-- Project 7 -->
+        <div class="mb-10">
+          <h3 class="text-2xl font-semibold text-green-700 mb-2"> Climate Action, tree planting and donation to schools.</h3>
+          <p class="text-gray-700 mb-4"> Combats climate change through carbon sequestration (tree planting), enhances local green spaces, and supports environmental education in schools with necessary resources.|</p>
+
+          <div class="project-gallery" role="region" aria-label="Policy advocacy gallery" tabindex="0" aria-describedby="gallery-instructions">
+            <figure>
+              <img src="./images/new tree donation.jpeg" alt="Stakeholder meeting" class="shadow-lg" loading="lazy" decoding="async" />
+              <figcaption class="mt-2 text-sm text-gray-600">Stakeholder engagement</figcaption>
+            </figure>
+            <figure class="flex-shrink-0 snap-start">
+              <img src="./images/treedonation.jpeg" alt="Workshop" class="rounded-lg shadow-lg w-full object-cover" style="aspect-ratio:16/9;" loading="lazy" decoding="async" />
+              <figcaption class="mt-2 text-sm text-gray-600">Policy workshop</figcaption>
+            </figure>
+            
+          </div>
+        </div>
+          
 
         </div>
      </section>
+     </main>
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="container mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="footer-stack-sm">
+          <p class="text-2xl font-bold mb-2">Eco-Conscious Movement</p>
+          <p class="text-sm text-gray-300">Protecting Nigeria’s Environment │ Inspiring Sustainable Action</p>
+        </div>
+        <div class="footer-stack-sm">
+          <h4 class="font-semibold mb-2">Contact</h4>
+          <p class="text-sm">Email: <a href="mailto:ecocoonsciousmovement@gmail.com" class="text-green-300">ecocoonsciousmovement@gmail.com</a></p>
+          <p class="text-sm mt-2">Location: Ilorin, Nigeria</p>
+        </div>
+        <div class="footer-stack-sm">
+          <h4 class="font-semibold mb-2">Site</h4>
+          <ul class="text-sm space-y-1">
+            <li><a href="#home" class="text-gray-300 hover:text-white">Home</a></li>
+            <li><a href="#themes" class="text-gray-300 hover:text-white">Thematic Areas</a></li>
+            <li><a href="projects.html" class="text-gray-300 hover:text-white">Projects</a></li>
+          </ul>
+          <div class="mt-4">
+            <h4 class="font-semibold mb-2">Follow</h4>
+            <div class="flex items-center justify-center md:justify-start space-x-3">
+              <a href="https://www.facebook.com/ecoconsciousmovement" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white hover:bg-gray-800 p-2 rounded-md inline-flex items-center transition" aria-label="Follow Eco-Conscious Movement on Facebook">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-6 w-6">
+                  <path d="M22 12.07C22 6.48 17.52 2 11.93 2 6.48 2 2 6.48 2 12.07 2 17.09 5.66 21.22 10.44 21.98V14.89H8.5v-2.82h1.94V10.6c0-1.92 1.12-2.98 2.85-2.98.82 0 1.67.15 1.67.15v1.83h-.95c-.94 0-1.24.59-1.24 1.2v1.44H17l-.31 2.82h-1.94v7.08C18.34 21.22 22 17.09 22 12.07z"/>
+                </svg>
+                <span class="ml-2 text-sm">Facebook</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 text-center text-gray-400">
+        <small>© <span id="year">2025</span> Eco-Conscious Movement. All rights reserved.</small>
+      </div>
+    </div>
+  </footer>
+
+
+<script>
+  (function(){
+    const btn = document.getElementById('nav-toggle');
+    const menu = document.getElementById('mobile-menu');
+    const header = document.querySelector('header');
+    if (btn && menu) {
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
+        menu.classList.toggle('hidden');
+      });
+      // Close menu on Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') { menu.classList.add('hidden'); btn.setAttribute('aria-expanded', 'false'); }
+      });
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!menu.contains(e.target) && !btn.contains(e.target)) {
+          menu.classList.add('hidden'); btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Close mobile menu when a menu item is selected (useful for single-page anchors)
+      menu.querySelectorAll('a[role="menuitem"], a').forEach(item => item.addEventListener('click', () => { menu.classList.add('hidden'); btn.setAttribute('aria-expanded','false'); }));
+    }
+
+    // Dynamic year in footer
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    // Header shadow on scroll
+    if (header) {
+      const onScroll = () => {
+        if (window.scrollY > 6) header.classList.add('shadow-lg'); else header.classList.remove('shadow-lg');
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+
+    // Highlight active nav link based on current path/hash
+    (function highlightActiveNav(){
+      const links = document.querySelectorAll('header nav a, #mobile-menu a');
+      links.forEach(link => {
+        const href = link.getAttribute('href') || '';
+        if (href.startsWith('#')) {
+          if (href === location.hash) {
+            link.classList.add('underline','font-semibold','text-white');
+            link.setAttribute('aria-current','page');
+          }
+          return;
+        }
+        try {
+          const url = new URL(link.href, location.origin);
+          if (url.pathname === location.pathname) {
+            link.classList.add('underline','font-semibold','text-white');
+            link.setAttribute('aria-current','page');
+          }
+        } catch(e){}
+      });
+    })();
+
+    // Ensure content images are lazy-loaded and use async decoding (except header logo)
+    document.querySelectorAll('main img, .project-gallery img, footer img, .container img').forEach(img => {
+      if (img.closest('header')) return;
+      if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
+      if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
+    });
+
+    // Gallery keyboard navigation: left/right/Home/End when focused
+    (function galleryKeyboardNav(){
+      document.querySelectorAll('.project-gallery').forEach(gallery => {
+        gallery.addEventListener('keydown', (e) => {
+          const step = Math.round(gallery.clientWidth * 0.8);
+          if (e.key === 'ArrowRight') { e.preventDefault(); gallery.scrollBy({ left: step, behavior: 'smooth' }); }
+          else if (e.key === 'ArrowLeft') { e.preventDefault(); gallery.scrollBy({ left: -step, behavior: 'smooth' }); }
+          else if (e.key === 'Home') { e.preventDefault(); gallery.scrollTo({ left: 0, behavior: 'smooth' }); }
+          else if (e.key === 'End') { e.preventDefault(); gallery.scrollTo({ left: gallery.scrollWidth, behavior: 'smooth' }); }
+        });
+      });
+    })();
+
+  })();
+</script>
    </body>
 </html>

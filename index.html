@@ -16,6 +16,33 @@
     /* Hero entrance animation */
     .fade-up { transform: translateY(8px); opacity: 0; transition: transform 450ms cubic-bezier(.2,.8,.2,1), opacity 450ms; }
     .fade-up.visible { transform: none; opacity: 1; }
+
+    /* Fluid typography helpers */
+    .fluid-h1 { font-size: clamp(1.75rem, 2.5vw + 1rem, 3.75rem); }
+    .fluid-h2 { font-size: clamp(1.25rem, 1.6vw + 0.8rem, 2.25rem); }
+    .fluid-h3 { font-size: clamp(1.05rem, 1.2vw + 0.6rem, 1.5rem); }
+
+    /* Focus outlines for keyboard users */
+    :where(a, button, [role="button"]) :focus-visible { outline: none; }
+    a:focus-visible, button:focus-visible, [role="button"]:focus-visible { outline: 3px solid rgba(16,185,129,0.35); outline-offset: 3px; border-radius: 4px; }
+
+    /* Prevent overflow and improve small-screen layout */
+    html, body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    * { box-sizing: border-box; }
+    .container { padding-left: 1rem; padding-right: 1rem; max-width: 1200px; margin-left: auto; margin-right: auto; }
+    @media(min-width:768px){ .container { padding-left: 1.5rem; padding-right: 1.5rem; } }
+    .project-gallery, .project-gallery * { min-width: 0; }
+    .project-gallery img { min-width: 0; max-width: 100%; }
+    .footer-stack-sm { display: block; text-align: center; }
+    @media(min-width: 768px){ .footer-stack-sm { display: unset; text-align: left; } }
+
+    /* Respect reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up, * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+    }
+
+    /* When jumping to anchors, make sure content isn't hidden by the sticky header */
+    #home, #founder, #themes, #contact, #projects { scroll-margin-top: 84px; }
   </style>
 
   <!-- Performance & Font preconnect -->
@@ -42,10 +69,10 @@
 
   <!-- Structured data (Organization) -->
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Organization","name":"Eco-Conscious Movement","url":"/","logo":"./images/logo4.jpg","sameAs":["https://facebook.com/","https://twitter.com/"],"contactPoint":{"@type":"ContactPoint","email":"ecocoonsciousmovement@gmail.com","contactType":"customer service"}}
+  {"@context":"https://schema.org","@type":"Organization","name":"Eco-Conscious Movement","url":"/","logo":"./images/logo4.jpg","sameAs":["https://www.facebook.com/ecoconsciousmovement","https://twitter.com/"],"contactPoint":{"@type":"ContactPoint","email":"ecocoonsciousmovement@gmail.com","contactType":"customer service"}}
   </script>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-50 text-gray-800 overflow-x-hidden">
   <a href="#main" class="sr-only focus:not-sr-only p-2 bg-white text-green-700">Skip to content</a>
 
   <!-- Header / Navigation -->
@@ -56,36 +83,46 @@
         <span class="text-2xl font-bold">The Eco-Conscious Movement</span>
       </a>
       <nav class="space-x-8 hidden md:block" aria-label="Primary navigation">
-        <a href="#home" class="hover:underline">Home</a>
-        <a href="#founder" class="hover:underline">Founder</a>
-        <a href="#themes" class="hover:underline">Thematic Areas</a>
-        <a href="projects.html" class="hover:underline">Projects</a>
+        <a href="#home" class="hover:underline py-2 px-2 inline-block">Home</a>
+        <a href="#founder" class="hover:underline py-2 px-2 inline-block">Founder</a>
+        <a href="#themes" class="hover:underline py-2 px-2 inline-block">Thematic Areas</a>
+        <a href="projects.html" class="hover:underline py-2 px-2 inline-block">Projects</a>
       </nav>
-      <button id="nav-toggle" class="md:hidden p-2 rounded hover:bg-green-700/30" aria-controls="mobile-menu" aria-expanded="false" aria-label="Toggle menu">☰</button>
+      <button id="nav-toggle" class="md:hidden p-3 rounded hover:bg-green-700/30" aria-controls="mobile-menu" aria-expanded="false" aria-haspopup="true" aria-label="Toggle menu">☰</button>
     </div>
 
     <!-- Mobile menu: appears on small screens when toggled -->
-    <div id="mobile-menu" class="md:hidden hidden bg-white text-gray-800 border-t">
+    <div id="mobile-menu" role="menu" class="md:hidden hidden bg-white text-gray-800 border-t">
       <div class="px-6 py-4 space-y-2">
-        <a href="#home" class="block px-3 py-2 rounded hover:bg-gray-100">Home</a>
-        <a href="#founder" class="block px-3 py-2 rounded hover:bg-gray-100">Founder</a>
-        <a href="#themes" class="block px-3 py-2 rounded hover:bg-gray-100">Thematic Areas</a>
-        <a href="projects.html" class="block px-3 py-2 rounded hover:bg-gray-100">Projects</a>
+        <a role="menuitem" href="#home" class="block px-4 py-3 rounded hover:bg-gray-100">Home</a>
+        <a role="menuitem" href="#founder" class="block px-4 py-3 rounded hover:bg-gray-100">Founder</a>
+        <a role="menuitem" href="#themes" class="block px-4 py-3 rounded hover:bg-gray-100">Thematic Areas</a>
+        <a role="menuitem" href="projects.html" class="block px-4 py-3 rounded hover:bg-gray-100">Projects</a>
       </div>
     </div>
   </header>
   <main id="main">
 
-  <!-- Hero Section -->
-  <section id="home" class="hero-bg text-white py-20 md:py-32 min-h-[60vh] md:min-h-screen flex items-center">
-    <div class="container mx-auto px-6 text-center">
-      <h1 class="text-4xl md:text-5xl font-bold mb-6">Leading the Charge for a Healthier Planet</h1>
-      <p class="text-xl md:text-2xl mb-10 max-w-4xl mx-auto">
-        Join the Eco-Conscious Movement to protect our environment, one sustainable action at a time.
-      </p>
-      <div class="space-x-4">
-        <a href="#themes" class="bg-green-600 hover:bg-green-700 px-8 py-4 rounded-lg text-lg font-semibold transition">Learn More About Our Mission</a>
-        <a href="#contact" class="border-2 border-white hover:bg-white hover:text-green-800 px-8 py-4 rounded-lg text-lg font-semibold transition">Get Involved</a>
+  <!-- Hero Section (responsive picture + overlay) -->
+  <section id="home" class="relative overflow-hidden text-white">
+    <picture class="absolute inset-0 -z-10 block w-full h-full">
+      <source type="image/webp" media="(max-width: 640px)" srcset="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fm=webp&q=80&w=900&fit=crop" />
+      <source type="image/webp" media="(min-width: 641px)" srcset="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fm=webp&q=80&w=2000&fit=crop" />
+      <source media="(max-width: 640px)" srcset="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=900&auto=format&fit=crop" />
+      <source media="(min-width: 641px)" srcset="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=2000&auto=format&fit=crop" />
+      <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=2000&auto=format&fit=crop" alt="" aria-hidden="true" class="w-full h-full object-cover" loading="eager" fetchpriority="high" />
+    </picture>
+    <div class="absolute inset-0 bg-gradient-to-b from-black/50 to-black/60 -z-10"></div>
+
+    <div class="container mx-auto px-6 py-20 md:py-32 min-h-[48vh] sm:min-h-[60vh] md:min-h-screen flex items-center">
+      <div class="w-full text-center">
+        <h1 class="fluid-h1 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">Leading the Charge for a Healthier Planet</h1>
+        <p class="text-lg sm:text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Join the Eco-Conscious Movement to protect our environment, one sustainable action at a time.</p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
+          <a href="#themes" class="bg-green-600 hover:bg-green-700 px-6 sm:px-8 py-3 rounded-lg text-base sm:text-lg font-semibold transition w-full sm:w-auto text-center">Learn More About Our Mission</a>
+          <a href="#contact" class="border-2 border-white hover:bg-white hover:text-green-800 px-6 sm:px-8 py-3 rounded-lg text-base sm:text-lg font-semibold transition w-full sm:w-auto text-center">Get Involved</a>
+        </div>
       </div>
     </div>
   </section>
@@ -108,7 +145,7 @@
       <h2 class="text-3xl md:text-4xl font-bold text-center text-green-800 mb-12">Meet Our Founder</h2>
       <div class="grid md:grid-cols-2 gap-12 items-center">
         <figure class="mx-auto text-center font-bold">
-          <img src="./images/founder.jpg" alt="Ajibade Sulaiman Temitope - Founder" class="rounded-lg shadow-xl mx-auto h-[440px] w-[350px]"/>
+          <img src="./images/founder.jpg" alt="Ajibade Sulaiman Temitope - Founder" class="rounded-lg shadow-xl mx-auto max-w-[350px] w-full h-auto" loading="lazy" decoding="async"/>
           <figcaption class="mt-4 text-lg italic text-gray-700 max-w-md mx-auto">
             “We do not inherit the earth from our parents; we owe it to our children. We must think about end-of-life stage of things we use and consequences of our activities so that our benefits of natural resources will not deny the coming generation.”
           </figcaption>
@@ -135,7 +172,7 @@
     <div class="container mx-auto px-6">
       <h2 class="text-3xl md:text-4xl font-bold text-center text-green-800 mb-8">Our Team & Volunteers</h2>
       <div class="grid md:grid-cols-3 gap-8 items-center">
-        <img src="./images/teampicture.jpg" alt="Eco-Conscious Movement team" class="rounded-lg shadow-xl mx-auto w-full"/>
+        <img src="./images/teampicture.jpg" alt="Eco-Conscious Movement team" class="rounded-lg shadow-xl mx-auto w-full" loading="lazy" decoding="async"/>
       </div>
     </div>
   </section>
@@ -157,13 +194,13 @@
             We bridge the gaps in knowledge and information through awareness campaign and public advocacy. 
           </p>
         </div>
-        <img src="./images/Mokwa-flood.jpg" alt="Maiduguri & Mokea flooding" class="rounded-lg shadow-lg"/>
+        <img src="./images/Mokwa-flood.jpg" alt="Maiduguri & Mokea flooding" class="rounded-lg shadow-lg" loading="lazy" decoding="async"/>
       </div>
 
       <!-- Raising Environmental Stewards -->
       <div class="bg-green-50 rounded-2xl p-10 mb-20">
         <h3 class="text-2xl font-bold text-green-800 mb-6 text-center">Raising a Generation of Environmental Stewards</h3>
-        <img src="./images/raising-generation.jpg" alt="Raising a generation of environmental stewards" class="h-[450px] w-full mb-6"/>
+        <img src="./images/raising-generation.jpg" alt="Raising a generation of environmental stewards" class="w-full mb-6 rounded-lg object-cover" style="aspect-ratio: 16/9;" loading="lazy" decoding="async"/>
         <p class="text-lg text-center max-w-4xl mx-auto">
             Nigeria stands at a critical point in its environmental journey. From plastic pollution choking our waterways to desertification moving rapidly across the north, flooding sweeping through coastal cities, and waste mismanagement affecting public health—our nation faces urgent ecological challenges.<br><br>
             Yet in the midst of these challenges lies Nigeria’s greatest asset: its youth. With over 60% of the population under age 25, Nigeria has the human potential to champion a greener, cleaner, and more sustainable future.<br><br>
@@ -173,7 +210,7 @@
 
       <!-- Plastic Pollution -->
       <div class="grid md:grid-cols-2 gap-12 mb-20 items-center">
-        <img src="./images/plasticpollution.webp" alt="Plastic pollution in Nigeria" class="rounded-lg shadow-lg order-last md:order-first h-[500px]"/>
+        <img src="./images/plasticpollution.webp" alt="Plastic pollution in Nigeria" class="rounded-lg shadow-lg order-last md:order-first w-full object-cover" style="aspect-ratio: 16/9;" loading="lazy" decoding="async"/>
         <div>
           <h3 class="text-2xl font-bold text-green-700 mb-4">Plastic Pollution: Taking Collective Action</h3>
           <p class="text-lg">
@@ -194,7 +231,7 @@
       <!-- Environmental Injustice -->
       <div class="bg-red-50 rounded-2xl p-10 mb-20 text-center">
         <h3 class="text-2xl font-bold text-red-800 mb-6">Environmental Injustice</h3>
-        <img src="./images/Environmental-Injustice.jpg" class="h-[450px] w-full mb-6"/>
+        <img src="./images/Environmental-Injustice.jpg" alt="Communities affected by environmental injustice" class="w-full mb-6 rounded-lg object-cover" style="aspect-ratio: 16/9;" loading="lazy" decoding="async"/>
         <p class="text-lg max-w-4xl mx-auto">
          Environmental injustice remains one of the most pressing but least discussed challenges affecting millions of Nigerians today. From oil spills in the Niger Delta to toxic dumps near poor communities, from mismanaged waste sites in urban slums to unequal access to clean water in rural towns—environmental harm in Nigeria does not affect everyone equally. Those who contribute the least to pollution often suffer the most from its consequences.<br><br>
          Environmental injustice has become one of the most critical but least addressed issues in Nigeria’s development story. It refers to the unequal distribution of environmental benefits and burdens, where certain communities—often poor, rural, or marginalized groups—bear the greatest risks from pollution, resource exploitation, and environmental degradation. <br><br>
@@ -214,7 +251,7 @@
             We also conduct water testing outreach programs in rural riverine communities, providing essential water quality assessments and educating residents about safe water practices. These initiatives empower local populations to monitor their water sources and take informed action to protect their health and livelihoods.
           </p>
         </div>
-        <img src="./images/lake.jpg" alt="Nigerian waterbody" class="rounded-lg shadow-lg object-contain w-full h-full"/>
+        <img src="./images/lake.jpg" alt="Nigerian waterbody" class="rounded-lg shadow-lg object-contain w-full h-full" loading="lazy" decoding="async"/>
     
 
       </div>
@@ -240,22 +277,33 @@
   <footer class="bg-gray-900 text-white py-12">
     <div class="container mx-auto px-6">
       <div class="grid md:grid-cols-3 gap-8">
-        <div>
+        <div class="footer-stack-sm">
           <p class="text-2xl font-bold mb-2">Eco-Conscious Movement</p>
           <p class="text-sm text-gray-300">Protecting Nigeria’s Environment │ Inspiring Sustainable Action</p>
         </div>
-        <div>
+        <div class="footer-stack-sm">
           <h4 class="font-semibold mb-2">Contact</h4>
           <p class="text-sm">Email: <a href="mailto:ecocoonsciousmovement@gmail.com" class="text-green-300">ecocoonsciousmovement@gmail.com</a></p>
           <p class="text-sm mt-2">Location: Ilorin, Nigeria</p>
         </div>
-        <div>
+        <div class="footer-stack-sm">
           <h4 class="font-semibold mb-2">Site</h4>
           <ul class="text-sm space-y-1">
             <li><a href="#home" class="text-gray-300 hover:text-white">Home</a></li>
             <li><a href="#themes" class="text-gray-300 hover:text-white">Thematic Areas</a></li>
             <li><a href="projects.html" class="text-gray-300 hover:text-white">Projects</a></li>
           </ul>
+          <div class="mt-4">
+            <h4 class="font-semibold mb-2">Follow</h4>
+            <div class="flex items-center justify-center md:justify-start space-x-3">
+              <a href="https://www.facebook.com/ecoconsciousmovement" target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-white hover:bg-gray-800 p-2 rounded-md inline-flex items-center transition" aria-label="Follow Eco-Conscious Movement on Facebook">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-6 w-6">
+                  <path d="M22 12.07C22 6.48 17.52 2 11.93 2 6.48 2 2 6.48 2 12.07 2 17.09 5.66 21.22 10.44 21.98V14.89H8.5v-2.82h1.94V10.6c0-1.92 1.12-2.98 2.85-2.98.82 0 1.67.15 1.67.15v1.83h-.95c-.94 0-1.24.59-1.24 1.2v1.44H17l-.31 2.82h-1.94v7.08C18.34 21.22 22 17.09 22 12.07z"/>
+                </svg>
+                <span class="ml-2 text-sm">Facebook</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -288,6 +336,9 @@
           menu.classList.add('hidden'); btn.setAttribute('aria-expanded', 'false');
         }
       });
+
+      // Close mobile menu when a menu item is selected (useful for single-page anchors)
+      menu.querySelectorAll('a[role="menuitem"], a').forEach(item => item.addEventListener('click', () => { menu.classList.add('hidden'); btn.setAttribute('aria-expanded','false'); }));
     }
 
     // Dynamic year in footer
@@ -302,6 +353,37 @@
       window.addEventListener('scroll', onScroll, { passive: true });
       onScroll();
     }
+
+    // Highlight active nav link based on current path/hash
+    (function highlightActiveNav(){
+      const links = document.querySelectorAll('header nav a, #mobile-menu a');
+      links.forEach(link => {
+        const href = link.getAttribute('href') || '';
+        // If it's an internal anchor (starts with '#'), match by hash only
+        if (href.startsWith('#')) {
+          if (href === location.hash) {
+            link.classList.add('underline','font-semibold','text-white');
+            link.setAttribute('aria-current','page');
+          }
+          return;
+        }
+        // Otherwise compare resolved pathname (handles links to other pages)
+        try {
+          const url = new URL(link.href, location.origin);
+          if (url.pathname === location.pathname) {
+            link.classList.add('underline','font-semibold','text-white');
+            link.setAttribute('aria-current','page');
+          }
+        } catch(e){}
+      });
+    })();
+
+    // Add lazy loading & async decoding to content images (except header logo)
+    document.querySelectorAll('main img, .project-gallery img, footer img, .container img').forEach(img => {
+      if (img.closest('header')) return;
+      if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
+      if (!img.hasAttribute('decoding')) img.setAttribute('decoding', 'async');
+    });
 
   })();
 </script>
